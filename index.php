@@ -2,6 +2,53 @@
 
 require_once 'php_action/db_connect.php';
 
+session_start();
+
+if(isset($_SESSION['userId'])) {
+    header('location: http://localhost:8012/stock_system/dashboard.php');
+}
+
+$errors = array();
+
+if ($_POST) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    if (empty($username) || empty($password)) {
+        if ($username == "") {
+            $errors[] = "Username is required";
+        }
+
+        if ($password == "") {
+            $errors[] = "Password is required";
+        }
+    }else {
+            $sql = "SELECT * FROM users WHERE username = '$username'";
+            $result = $connect->query($sql);
+
+            if ($result->num_rows == 1) {
+                $password = md5($password);
+                //exists
+                $mainSql = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+                $mainResult = $connect->query($mainSql);
+
+                if ($mainResult->num_rows == 1) {
+                    $value = $mainResult->fetch_assoc();
+                    $user_id = $value['user_id'];
+
+
+                    //set session
+                    $_SESSION['user_Id'] = $user_id;
+
+                    header('location: http://localhost:8012/stock_system/dashboard.php');
+                } else {
+                    $errors[] = "incorrect username/password combination";
+                }
+            } else {
+                $errors[] = "Username does not exists";
+            } // else
+        }// else not empty username //password
+} //if $_POST
 ?>
 
 <!DOCTYPE html>
@@ -24,6 +71,7 @@ require_once 'php_action/db_connect.php';
     <script type="text/javascript" src="assets/jquery-ui/jquery-ui.min.js"></script>
     <!-- bootstrap js-->
     <script type="text/javascript"src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
 </head>
 <body>
     <div class="container">
@@ -35,31 +83,33 @@ require_once 'php_action/db_connect.php';
                     </div>
                     <div class="panel-body">
 
-                        <form class="form-horizontal">
+                        <div class="messages">
+                            <?php if ($errors){
+                                foreach ($errors as $key => $value){
+                                    echo '<div class="alert alert-warning" role="alert">
+                                        <i class="glyphicon glyphicon-exclamation-sign"></i>
+                                        '.$value.'
+                                    </div>';
+                                }
+                            }?>
+                        </div>
+
+                        <form class="form-horizontal"action="<?php echo $_SERVER['PHP_SELF']?>"method="POST"id="loginForm">
                             <div class="form-group">
-                                <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                                <label for="username" class="col-sm-2 control-label">Username</label>
                                 <div class="col-sm-10">
-                                    <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                                    <input type="text" class="form-control" id="username"name="username" placeholder="Username">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                                <label for="password" class="col-sm-2 control-label">Password</label>
                                 <div class="col-sm-10">
-                                    <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox"> Remember me
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-default">Sign in</button>
+                                    <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-log-in"></i>Sign in</button>
                                 </div>
                             </div>
                         </form>

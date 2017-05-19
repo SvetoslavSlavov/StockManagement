@@ -3,11 +3,11 @@
 
 $localhost = "127.0.0.1";
 $username = "root";
-$pasword = "";
+$password = "";
 $dbname  = "stock";
 
 //create db connection
-$connect = new mysqli($localhost,$username,$pasword,$dbname);
+$connect = new mysqli($localhost,$username,$password,$dbname);
 //check connection
 if ($connect->connect_error){
     die("Connection Failed :" . $connect->connect_error);
