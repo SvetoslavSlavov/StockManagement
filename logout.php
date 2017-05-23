@@ -1,7 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Acer
- * Date: 17.5.2017 г.
- * Time: 18:03 ч.
- */
+
+//remove all session variables
+require_once 'php_action/core.php';
+
+//destroy the session
+session_destroy();
+
+header('location:http://localhost:8012/stock_system/index.php');
+
+?>

@@ -4,6 +4,12 @@ require_once 'php_action/db_connect.php';
 
 session_start();
 
+//user can't go to log in page when it log in
+if(isset($_SESSION['user_Id'])){
+    header('location:http://localhost:8012/stock_system/dashboard.php');
+}
+
+
 if(isset($_SESSION['userId'])) {
     header('location: http://localhost:8012/stock_system/dashboard.php');
 }
