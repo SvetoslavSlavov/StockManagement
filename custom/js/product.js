@@ -31,7 +31,7 @@ $(document).ready(function() {
 		    removeTitle: 'Cancel or reset changes',
 		    elErrorContainer: '#kv-avatar-errors-1',
 		    msgErrorClass: 'alert alert-block alert-danger',
-		    defaultPreviewContent: '<img src="assests/images/photo_default.png" alt="Profile Image" style="width:100%;">',
+		    defaultPreviewContent: '<img src="../assets/images/photo_default.png" alt="Profile Image" style="width:100%;">',
 		    layoutTemplates: {main2: '{preview} {remove} {browse}'},								    
 	  		allowedFileExtensions: ["jpg", "png", "gif", "JPG", "PNG", "GIF"]
 			});   
@@ -62,7 +62,7 @@ $(document).ready(function() {
 				$("#productName").after('<p class="text-danger">Product Name field is required</p>');
 				$('#productName').closest('.form-group').addClass('has-error');
 			}	else {
-				// remov error text field
+				// remove error text field
 				$("#productName").find('.text-danger').remove();
 				// success out for form 
 				$("#productName").closest('.form-group').addClass('has-success');	  	
@@ -149,7 +149,7 @@ $(document).ready(function() {
 		            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
 		          '</div>');
 
-							// remove the mesages
+							// remove the messages
 		          $(".alert-success").delay(500).show(10, function() {
 								$(this).delay(3000).hide(10, function() {
 									$(this).remove();
@@ -178,7 +178,7 @@ $(document).ready(function() {
 
 	// remove product 	
 
-}); // document.ready fucntion
+}); // document.ready function
 
 function editProduct(productId = null) {
 
@@ -261,7 +261,7 @@ function editProduct(productId = null) {
 						$("#editProductName").after('<p class="text-danger">Product Name field is required</p>');
 						$('#editProductName').closest('.form-group').addClass('has-error');
 					}	else {
-						// remov error text field
+						// remove error text field
 						$("#editProductName").find('.text-danger').remove();
 						// success out for form 
 						$("#editProductName").closest('.form-group').addClass('has-success');	  	
@@ -346,7 +346,7 @@ function editProduct(productId = null) {
 				            '<strong><i class="glyphicon glyphicon-ok-sign"></i></strong> '+ response.messages +
 				          '</div>');
 
-									// remove the mesages
+									// remove the messages
 				          $(".alert-success").delay(500).show(10, function() {
 										$(this).delay(3000).hide(10, function() {
 											$(this).remove();

@@ -16,12 +16,12 @@ if($_POST) {
 
     $type = explode('.', $_FILES['productImage']['name']);
     $type = $type[count($type)-1];
-    $url = '../assests/images/stock/'.uniqid(rand()).'.'.$type;
+    $url = '../assets/images/stock/'.uniqid(rand()).'.'.$type;
     if(in_array($type, array('gif', 'jpg', 'jpeg', 'png', 'JPG', 'GIF', 'JPEG', 'PNG'))) {
         if(is_uploaded_file($_FILES['productImage']['tmp_name'])) {
             if(move_uploaded_file($_FILES['productImage']['tmp_name'], $url)) {
 
-                $sql = "INSERT INTO product (product_name, product_image, brand_id, categories_id, quantity, rate, active, status) 
+                $sql = "INSERT INTO products (product_name, product_image, brand_id, categories_id, quantity, rate, active, status) 
 				VALUES ('$productName', '$url', '$brandName', '$categoryName', '$quantity', '$rate', '$productStatus', 1)";
 
                 if($connect->query($sql) === TRUE) {
